@@ -1,4 +1,4 @@
-from flask import Flask, url_for
+from flask import Flask, url_for, request
 
 app = Flask(__name__)
 
@@ -79,6 +79,62 @@ def get_or_create_comments(article_id):
     return f'Get or create comments for article with id {article_id}'
 
 
+@app.route('/example', methods=['GET', 'POST'])
+def example():
+    """
+    This function takes no arguments and returns a string.
+    """
+    if request.method == 'POST':
+        return 'You are using POST'
+    else:
+        return 'You are using GET'
+    
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """
+    This function takes no arguments and returns a string.
+    """
+    username = request.form.get('username')
+    password = request.form.get('password')
+    # Process the username and password
+
+@app.route('/search', methods=['GET'])
+def search():
+    """
+    This function takes no arguments and returns a string.
+
+    Example of url: /search?q=flask
+    e
+    """
+    query = request.args.get('q')
+    # Process the query
+
+@app.route('/json_data', methods=['POST'])
+def json_data():
+    """
+    This function takes no arguments and returns a string.
+    """
+    data = request.json
+    # Process the json data
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    """
+    This function takes no arguments and returns a string.
+    """
+    file = request.files['file']
+    # Process the file
+
+@app.route('/cookies', methods=['GET'])
+def cookies():
+    """
+    This function takes no arguments and returns a string.
+    """
+    cookie = request.cookies.get('cookie_name')
+    # Process the cookie
+
+
+    
 
 # # Generating a url for usr_profile
 # url = url_for('user_profile', username='michael')
