@@ -25,7 +25,7 @@ def user_profile(username):
     """
     return f"User profile for {username}"
 
-@app.route('/articles', method=['GET'])
+@app.route('/articles', methods=['GET'])
 def get_articles():
     """
     This function takes no arguments and returns a string.
@@ -33,14 +33,14 @@ def get_articles():
     return 'List of all articles'
 
 
-@app.route('/articles', method=['POST'])
+@app.route('/articles', methods=['POST'])
 def create_article():
     """
     This function takes no arguments and returns a string.
     """
     return 'Create a new article'
 
-@app.route('/articles/<int:article_id>', method=['GET'])
+@app.route('/articles/<int:article_id>', methods=['GET'])
 def get_article(article_id):
     """
     This function takes an integer as an argument and returns a string.
@@ -48,7 +48,7 @@ def get_article(article_id):
     return f'View article with id {article_id}'
 
 
-@app.route('/articles/<int:article_id>', method=['PUT'])
+@app.route('/articles/<int:article_id>', methods=['PUT'])
 def update_article(article_id):
     """
     This function takes an integer as an argument and returns a string.
@@ -56,14 +56,14 @@ def update_article(article_id):
     return f'Update article with id {article_id}'
 
 
-@app.route('/articles/<int:article_id>', method=['DELETE'])
+@app.route('/articles/<int:article_id>', methods=['DELETE'])
 def delete_article(article_id):
     """
     This function takes an integer as an argument and returns a string.
     """
     return f'Delete article with id {article_id}'
 
-@app.route('/articles/<int:article_id>/comments', method=['PATCH'])
+@app.route('/articles/<int:article_id>/comments', methods=['PATCH'])
 def update_comments(article_id):
     """
     This function takes an integer as an argument and returns a string.
@@ -71,7 +71,7 @@ def update_comments(article_id):
     return f'Update comments for article with id {article_id}'
 
 # Pass multiple http methods
-@app.route('/articles/<int:article_id>/comments', method=['GET', 'POST'])
+@app.route('/articles/<int:article_id>/comments', methods=['GET', 'POST'])
 def get_or_create_comments(article_id):
     """
     This function takes an integer as an argument and returns a string.
@@ -175,9 +175,11 @@ def api_data():
     }
     return jsonify(data)
 
+
 @app.route('/redirect')
 def redirect():
     return redirect(url_for('index'))
+
 
 @app.route('/set_custom_cookie')
 def set_custom_cookie():
@@ -189,6 +191,23 @@ def set_custom_cookie():
 @app.route('/render_template')
 def render_template():
     return render_template('index.html')
+
+@app.route('blog')
+def blog():
+    blog_posts = [
+        {
+            'title': 'Blog Post 1',
+            'content': 'This is the first blog post',
+            'author': 'Michael'
+        },
+        {
+            'title': 'Blog Post 2',
+            'content': 'This is the second blog post',
+            'author': 'Michael'
+        }
+    ]
+
+    return render_template('blog.html', blog_posts=blog_posts)
 
 
     
