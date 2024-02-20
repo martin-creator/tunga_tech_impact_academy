@@ -133,6 +133,34 @@ def cookies():
     cookie = request.cookies.get('cookie_name')
     # Process the cookie
 
+@app.route('/redirect')
+def redirect():
+    """
+    This function takes no arguments and returns a string.
+    """
+    return redirect(url_for('index'))
+
+@app.route('/get_path')
+def get_path():
+    """
+    This function takes no arguments and returns a string.
+    """
+    return request.path
+
+@app.route('/get_full_path')
+def get_full_path():
+    """
+    This function takes no arguments and returns a string.
+    """
+    return request.full_path
+
+@app.route('/headers')
+def headers():
+    """
+    This function takes no arguments and returns a string.
+    """
+    return str(request.headers)
+
 
     
 
