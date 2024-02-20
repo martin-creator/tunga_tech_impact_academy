@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, jsonify, redirect, make_response
+from flask import Flask, url_for, request, jsonify, redirect, make_response, render_template, flash, session, g
 
 app = Flask(__name__)
 
@@ -96,6 +96,13 @@ def login():
     """
     username = request.form.get('username')
     password = request.form.get('password')
+
+    if username == 'michael' and password == 'password':
+        flash('You have successfully logged in')
+        return redirect(url_for('home'))
+    else:
+        flash('Invalid credentials')
+        return redirect(url_for('login'))
     # Process the username and password
 
 @app.route('/search', methods=['GET'])
