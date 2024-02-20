@@ -210,6 +210,26 @@ def blog():
     return render_template('blog.html', blog_posts=blog_posts)
 
 
+@app('/home')
+def home():
+    # Accessing config values
+    app.config['DEBUG'] = True
+    app.config['SECRET_KEY'] = 'my_secret'
+
+    # Accessing request values
+    request_method = request.method
+
+    # Accessing session values
+    session['username'] = 'michael'
+
+    # Storing and and retrieving data using g object
+    g.user = 'michael'
+    g.name = 'Michael'
+
+    # Flashing messages
+    flash('You have successfully logged in')
+
+    return render_template('home.html')
     
 
 # # Generating a url for usr_profile
