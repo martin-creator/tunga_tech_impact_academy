@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, jsonify, redirect, make_response
 
 app = Flask(__name__)
 
@@ -160,6 +160,31 @@ def headers():
     This function takes no arguments and returns a string.
     """
     return str(request.headers)
+
+# Returning responses
+
+@app.route('/')
+def index():
+    return '<h1>Hello, World!</h1>', 200
+
+@app.route('/api/data')
+def api_data():
+    data = {
+        'name': 'Michael',
+        'age': 25
+    }
+    return jsonify(data)
+
+@app.route('/redirect')
+def redirect():
+    return redirect(url_for('index'))
+
+@app.route('/set_custom_cookie')
+def set_custom_cookie():
+    response = "Cookie has been set"
+    resp = make_response(response)
+    resp.set_cookie('custom_cookie', 'flask')
+    return resp
 
 
     
