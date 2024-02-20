@@ -186,6 +186,10 @@ def set_custom_cookie():
     resp.set_cookie('custom_cookie', 'flask')
     return resp
 
+@app.route('/render_template')
+def render_template():
+    return render_template('index.html')
+
 
     
 
