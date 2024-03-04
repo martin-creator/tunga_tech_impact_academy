@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField,TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from models import BlogPost,db
 
 app = Flask(__name__)
@@ -11,6 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # This is just here to supp
 app.config['SECRET_KEY'] = 'my_secret'
 
 db.init_app(app)
+migrate = Migrate(app, db) # This is the migration engine
 
 # Create the database
 with app.app_context():
