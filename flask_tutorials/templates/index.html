@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Flask Blog</h1>
+    {%include 'navbar.html'%}
+    <p>Welcome to the Flask Blog</p>
+    <h2>Posts</h2>
+    {% for post in posts %}
+    <div>
+        <h3>{{ post.title }}</h3>
+        <p>By {{ post.author }} on {{ post.date_posted }}</p>
+        <p>{{ post.content }}</p>
+    </div>
+    {% endfor %}
+{% endblock %}
