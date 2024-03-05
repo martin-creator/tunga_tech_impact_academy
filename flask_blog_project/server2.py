@@ -12,6 +12,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # This is just here to suppress a warning from SQLAlchemy as it will soon be removed
 app.config['SECRET_KEY'] = 'my_secret'
 
+app.register_blueprint(auth)
+app.register_blueprint(blog)
+
 login_manager = LoginManager()
 
 db.init_app(app)
