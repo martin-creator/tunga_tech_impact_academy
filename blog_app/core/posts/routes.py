@@ -4,11 +4,15 @@ from core.posts import bp
 from core.extensions import db
 from core.models.post import Post
 
-@bp.route('/')
-def index():
-    return render_template('posts/index.html')
+# @bp.route('/')
+# def index():
+#     return render_template('posts/index.html')
 
 @bp.route('/')
 def index():
     posts = Post.query.all()
     return render_template('posts/index.html', posts=posts)
+
+@bp.route('/categories/')
+def categories():
+    return render_template('posts/categories.html')
