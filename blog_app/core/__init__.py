@@ -4,6 +4,8 @@ from core.posts import bp as posts_bp
 from core.questions import bp as question_bp
 from core.extensions import db
 from core.auth import bp as auth_bp
+from flask_login import LoginManager
+from core.models.user import User
 
 from config import Config
 
@@ -13,6 +15,10 @@ def create_app(config_class=Config):
 
     # Initialize Flask extensions here
     db.init_app(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
 
      # blueprint for auth routes in our app
     app.register_blueprint(auth_bp)
@@ -25,6 +31,11 @@ def create_app(config_class=Config):
     app.register_blueprint(main_bp)
     app.register_blueprint(posts_bp, url_prefix='/posts')
     app.register_blueprint(question_bp, url_prefix='/questions')
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        # since the user_id is just the primary key of our user table, use it in the query for the user
+        return User.query.get(int(user_id))
 
     @app.route('/test/')
     def test_page():
