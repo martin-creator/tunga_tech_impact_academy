@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %} - FlaskApp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
     <style>
         h2 {
             width: 100%;
@@ -49,6 +50,18 @@
         <a href="{{ url_for('posts.index') }}">Posts</a>
         <a href="{{ url_for('posts.categories') }}">Categories</a>
         <a href="{{ url_for('questions.index')}}">Questions</a>
+        <a href="{{ url_for('main.profile') }}" class="navbar-item">
+            Profile
+        </a>
+        <a href="{{ url_for('auth.login') }}" class="navbar-item">
+            Login
+        </a>
+        <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+            Sign Up
+        </a>
+        <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+            Logout
+        </a>
     </nav>
     <hr>
     <div class="content">
