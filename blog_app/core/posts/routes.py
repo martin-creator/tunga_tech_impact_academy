@@ -1,7 +1,8 @@
 from flask import render_template
 from core.posts import bp
-from core.models import Post
+#from core.models import Post
 from core.extensions import db
+from core.models.post import Post
 
 @bp.route('/')
 def index():
