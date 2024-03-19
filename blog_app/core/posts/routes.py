@@ -1,10 +1,13 @@
 from flask import render_template
 from core.posts import bp
+from core.models import Post
+from core.extensions import db
 
 @bp.route('/')
 def index():
     return render_template('posts/index.html')
 
-@bp.route('/categories/')
-def categories():
-    return render_template('posts/categories.html')
+@bp.route('/')
+def index():
+    posts = Post.query.all()
+    return render_template('posts/index.html', posts=posts)
