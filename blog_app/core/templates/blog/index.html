@@ -31,7 +31,7 @@ URL: https://flowbite.com/docs/components/typography/
         <span class="font-medium">Success alert!</span> {{ messages[0] }}
       </div>
     </div>
-    
+
     {% endif %} {% endwith %}
     <article
       class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert"
@@ -51,14 +51,14 @@ URL: https://flowbite.com/docs/components/typography/
                 href="#"
                 rel="author"
                 class="text-xl font-bold text-gray-900 dark:text-white"
-                >Jese Leos</a
+                > {{ blog.author}} </a
               >
               <p class="text-base text-gray-500 dark:text-gray-400">
-                Graphic Designer, educator & CEO Flowbite
+                Date: &nbsp; {{ blog.date_posted}}
               </p>
               <p class="text-base text-gray-500 dark:text-gray-400">
                 <time pubdate datetime="2022-02-08" title="February 8th, 2022"
-                  >Feb. 8, 2022</time
+                  > {{ blog.date}} </time
                 >
               </p>
             </div>
@@ -67,22 +67,22 @@ URL: https://flowbite.com/docs/components/typography/
         <h1
           class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white"
         >
-          Best practices for successful prototypes
+          {{ blog.title }}
         </h1>
       </header>
 
       <figure class="my-3">
         <img
-          src="https://flowbite.s3.amazonaws.com/typography-plugin/typography-image-1.png"
+          src="{{ blog.header_image }}"
           alt=""
+          class="h-auto max-w-lg rounded-lg"
+          style="width: 100%; height:50%; align-items: center;"
         />
         <figcaption>Digital art by Anonymous</figcaption>
       </figure>
-
-      <p class="lead">
-        Flowbite is an open-source library of UI components built with the
-        utility-first classes from Tailwind CSS. It also includes interactive
-        elements such as dropdowns, modals, datepickers.
+     
+      <p class="lead" style="text-align: justify; text-justify: inter-word;">
+        {{ blog.content }}
       </p>
     </article>
   </div>
