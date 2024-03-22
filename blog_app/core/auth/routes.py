@@ -6,9 +6,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from core.models.user import User
 
 
-@bp.route('/login')
+@bp.route('/login', methods=['GET'])
 def login():
-    render_template('auth/login.html')
+    return render_template('auth/login.html')
 
 @bp.route('/login', methods=['POST'])
 def login_post():
@@ -49,7 +49,7 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+    new_user = User(email=email, name=name, password=generate_password_hash(password, method='pbkdf2:sha256'))
 
     # add the new user to the database
     db.session.add(new_user)
