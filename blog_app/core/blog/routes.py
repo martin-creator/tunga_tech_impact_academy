@@ -53,6 +53,79 @@ def create_blog():
    
     #return 'Blog created successfully'
     
+
+@bp.route('/blogs', methods=['GET'])
+def blogs():
+    blogs = Blog.query.all()
+    logging.info(blogs)
+    return render_template('blog/blogs.html', blogs=blogs)
+
+@bp.route('/<int:id>', methods=['GET'])
+def blog(id):
+    """
+    Display a single blog post
+
+    Sample url: http://localhost:5000/blog/1
+    
+    """
+    blog = Blog.query.get(id)
+    return render_template('blog/index.html', blog=blog)
+
+
+@bp.route('/update/<int:id>', methods=['GET'])
+def update_blog_page(id):
+    blog = Blog.query.get(id)
+    return render_template('blog/update_blog.html', blog=blog)
+
+
+@bp.route('/update/<int:id>', methods=['POST'])
+def update_blog(id):
+
+    try:
+        blog = Blog.query.get(id)
+        blog.title = request.form['title']
+        blog.header_image = request.form['image']
+        blog.content = request.form['content']
+        blog.author = request.form['author']
+        blog.date_posted = request.form['date']
+        blog.category = request.form['category']
+        db.session.commit()
+        flash('Blog updated successfully', 'success')
+        return redirect(url_for('blog.blog', id=blog.id))
+    
+    except:
+        flash('Error updating blog', 'error')
+        return redirect(url_for('blog.blog'))
+
+@bp.route('/delete/<int:id>', methods=['GET'])
+def delete_blog(id):
+    try:
+        blog = Blog.query.get(id)
+        db.session.delete(blog)
+        db.session.commit()
+        flash('Blog deleted successfully', 'success')
+        return redirect(url_for('blog.blogs'))
+    except:
+        flash('Error deleting blog', 'error')
+        return redirect(url_for('blog.blogs'))
+    
+
+@bp.route('/delete_all', methods=['GET'])
+def delete_all_blogs():
+    try:
+        Blog.query.delete()
+        db.session.commit()
+        flash('All blogs deleted successfully', 'success')
+        return redirect(url_for('blog.blogs'))
+    except:
+        flash('Error deleting blogs', 'error')
+        return redirect(url_for('blog.blogs'))
+    
+
+
+
+
+
     
     
 
