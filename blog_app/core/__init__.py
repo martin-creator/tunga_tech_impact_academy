@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_migrate import Migrate
 from core.main import bp as main_bp
 from core.posts import bp as posts_bp
 from core.questions import bp as question_bp
@@ -15,6 +16,7 @@ def create_app(config_class=Config):
 
     # Initialize Flask extensions here
     db.init_app(app)
+    migrate = Migrate(app, db)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
