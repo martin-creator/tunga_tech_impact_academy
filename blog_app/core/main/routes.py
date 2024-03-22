@@ -10,4 +10,4 @@ def index():
 @bp.route('/profile')
 @login_required
 def profile():
-    return render_template('auth/profile.html', name=current_user.name)
+    return render_template('auth/profile.html', name=current_user.name, email=current_user.email, id=current_user.id, password=current_user.password)
