@@ -15,4 +15,5 @@ def index():
 
 @bp.route('/categories/')
 def categories():
-    return render_template('posts/categories.html')
+    # return render_template('posts/categories.html')
+    return render_template('blog/index.html')
