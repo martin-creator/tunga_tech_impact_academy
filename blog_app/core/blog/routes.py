@@ -34,10 +34,12 @@ def create_blog():
                         category=request.form['category'])
         db.session.add(new_blog)
         db.session.commit()
-        flash('Blog created successfully')
+        flash('Blog created successfully', 'success')
         return redirect(url_for('blog.create_blog_page'))
     except:
         flash('Error creating blog')
+
+
         # log tthe actual error for debugging
 
         logging.error('Error creating blog', exc_info=True)

@@ -3,6 +3,7 @@ from flask_migrate import Migrate
 from core.main import bp as main_bp
 from core.posts import bp as posts_bp
 from core.questions import bp as question_bp
+from core.blog import bp as blog_bp
 from core.extensions import db
 from core.auth import bp as auth_bp
 from flask_login import LoginManager
@@ -33,6 +34,7 @@ def create_app(config_class=Config):
     app.register_blueprint(main_bp)
     app.register_blueprint(posts_bp, url_prefix='/posts')
     app.register_blueprint(question_bp, url_prefix='/questions')
+    app.register_blueprint(blog_bp, url_prefix='/blog')
 
     @login_manager.user_loader
     def load_user(user_id):
