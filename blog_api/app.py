@@ -1,14 +1,11 @@
 from flask import Flask
 
 
+app = Flask(__name__)
 
-def create_app(config_class=None):
-    app = Flask(__name__)
+stores = [{"name": "My Store", "items": [{"name": "my item", "price": 15.99}]}]
 
-    @app.route('/')
-    def home():
-        return 'Hello, World!'
-
-    return app
-
+@app.route('/store', methods=['GET'])
+def get_stores():
+    return {"stores": stores}
 
