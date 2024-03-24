@@ -1,5 +1,6 @@
 from flask import Flask, request
 from db import stores, items
+from flask_smorest import abort
 import uuid
 
 app = Flask(__name__)
@@ -12,7 +13,7 @@ def get_store(store_id):
         # We'll do that later on in the course
         return stores[store_id]
     except KeyError:
-        return {"message": "Store not found"}, 404
+        abort(404, message="Store not found.")
 
 @app.get("/store")
 def get_stores():
@@ -51,5 +52,5 @@ def get_item(item_id):
     try:
         return items[item_id]
     except KeyError:
-        return {"message": "Item not found"}, 404
+        abort(404, message="Item not found.")
 
