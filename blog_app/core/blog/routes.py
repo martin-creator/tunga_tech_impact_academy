@@ -124,11 +124,6 @@ def delete_all_blogs():
 
 
 
-
-
-    
-    
-
 @bp.route('/profile')
 @login_required
 def profile():
