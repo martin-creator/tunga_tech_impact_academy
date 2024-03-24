@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_smorest import Api
+from flask_jwt_extended import JWTManager
 from db import db
 
 from resources.item import blp as ItemBlueprint
@@ -25,6 +26,9 @@ def create_app(db_url=None):
     db.init_app(app)
 
     api = Api(app)
+
+    app.config["JWT_SECRET_KEY"] = "tunga-impact-academy-2024" # Use str(secrets.SystemRandom().getrandbits(128)) to generate a random secret key
+    jwt = JWTManager(app)
 
     with app.app_context():
         db.create_all()
