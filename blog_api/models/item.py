@@ -11,5 +11,6 @@ class ItemModel(db.Model):
         db.Integer, db.ForeignKey("stores.id"), unique=False, nullable=False
     )
     store = db.relationship("StoreModel", back_populates="items") 
+    tags = db.relationship("TagModel", back_populates="items", secondary="items_tags")
     # back_populates is used to create a relationship between the StoreModel and ItemModel
     # Back_populates is used to create a one-to-many relationship between the StoreModel and ItemModel
