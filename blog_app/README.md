@@ -13,7 +13,7 @@
 ## --> add a route to send email to subscribers
 ## --> Route authorization
 ## --> add auhorization on jinja templates as well
-## --> Add make file
+## --> Add Make file
 ## --> add a docker file
 ## --> Add contact form route
 ## --> Display contact messages on users dashboard
