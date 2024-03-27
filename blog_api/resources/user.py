@@ -2,13 +2,13 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, get_jwt,jwt_required, create_refresh_token, get_jwt_identity
-from db import db
-from models import UserModel
-from schemas import UserSchema
-from blocklist import BLOCKLIST
+from blog_api.db import db
+from blog_api.models import UserModel
+from blog_api.schemas import UserSchema
+from blog_api.blocklist import BLOCKLIST
 
 
-blp = Blueprint("Users", "users", description="Operations on users")
+blp = Blueprint("Users", __name__, description="Operations on users")
 
 @blp.route("/logout")
 class UserLogout(MethodView):
@@ -78,20 +78,9 @@ class TokenRefresh(MethodView):
     @jwt_required(refresh=True)
     def post(self):
         current_user = get_jwt_identity()
-        new_token = create_access_token(identity=current_user, fresh=False)
+        new_token = create_access_token(identity=current_user, fresh=False) # Fresh token and refresh token
         # Make it clear that when to add the refresh token to the blocklist will depend on the app design
         jti = get_jwt()["jti"]
         BLOCKLIST.add(jti)
         return {"access_token": new_token}, 200
     
-
-@blp.route("/refresh")
-class TokenRefresh(MethodView):
-    @jwt_required(refresh=True)
-    def post(self):
-        current_user = get_jwt_identity()
-        new_token = create_access_token(identity=current_user, fresh=False)
-        # Make it clear that when to add the refresh token to the blocklist will depend on the app design
-        jti = get_jwt()["jti"]
-        BLOCKLIST.add(jti)
-        return {"access_token": new_token}, 200
