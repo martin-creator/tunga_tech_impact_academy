@@ -35,6 +35,7 @@ def create_app(db_url=None):
     jwt = JWTManager(app)
 
     db.init_app(app)
+    migrate = Migrate(app, db)
 
     api = Api(app)
 
