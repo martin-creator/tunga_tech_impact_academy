@@ -1,12 +1,11 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
+from blog_api.db import db
+from blog_api.models import TagModel, ItemModel, StoreModel
+from blog_api.schemas import TagSchema, TagAndItemSchema
 
-from db import db
-from models import TagModel, StoreModel, ItemModel
-from schemas import TagSchema, TagAndItemSchema
-
-blp = Blueprint("Tags", "tags", description="Operations on tags")
+blp = Blueprint("Tags", __name__, description="Operations on tags")
 
 
 @blp.route("/store/<string:store_id>/tag")
