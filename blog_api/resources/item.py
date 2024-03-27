@@ -4,9 +4,9 @@ from flask_jwt_extended import jwt_required
 from sqlalchemy.exc import SQLAlchemyError
 from flask_jwt_extended import jwt_required, get_jwt
 
-from db import db
-from models import ItemModel
-from schemas import ItemSchema, ItemUpdateSchema
+from blog_api.db import db
+from blog_api.models import ItemModel
+from blog_api.schemas import ItemSchema, ItemUpdateSchema
 
 blp = Blueprint("Items", __name__, description="Operations on items")
 
@@ -54,7 +54,7 @@ class ItemList(MethodView):
     def get(self):
         return ItemModel.query.all()
 
-    @jwt_required()
+    @jwt_required(fresh=True)
     @blp.arguments(ItemSchema)
     @blp.response(201, ItemSchema)
     def post(self, item_data):
