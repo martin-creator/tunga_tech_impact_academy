@@ -2,10 +2,10 @@ import uuid
 from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from db import db
-from models import StoreModel
+from blog_api.db import db
+from blog_api.models import StoreModel
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
-from schemas import StoreSchema
+from blog_api.schemas import StoreSchema
 
 
 blp = Blueprint("stores", __name__, description="Operations on stores")
