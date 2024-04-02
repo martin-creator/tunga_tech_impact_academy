@@ -3,4 +3,4 @@
 Flask-SQLAlchemy is a Flask extension which helps connect SQLAlchemy to Flask apps. -->
 
 
-# Blog API
+# Blog APIs
