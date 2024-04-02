@@ -1,6 +1,9 @@
 from flask.views import MethodView
 import os
 import requests
+import redis
+from rq import Queue
+from blog_api.tasks import send_user_registration_email
 from sqlalchemy import or_  # or_ is an "OR" operator for SQLAlchemy
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
@@ -13,19 +16,11 @@ from blog_api.blocklist import BLOCKLIST
 
 blp = Blueprint("Users", __name__, description="Operations on users")
 
+connection = redis.from_url(
+    os.getenv("REDIS_URL")
+)  # Get this from Render.com or run in Docker
+queue = Queue("emails", connection=connection)
 
-def send_simple_message(to, subject, body):
-    domain = os.getenv("MAILGUN_DOMAIN")
-    return requests.post(
-        f"https://api.mailgun.net/v3/{domain}/messages",
-        auth=("api", os.getenv("MAILGUN_API_KEY")),
-        data={
-            "from": f"Your Name <mailgun@{domain}>",
-            "to": [to],
-            "subject": subject,
-            "text": body,
-        },
-    )
 
 
 @blp.route("/logout")
@@ -54,11 +49,7 @@ class UserRegister(MethodView):
         db.session.add(user)
         db.session.commit()
 
-        send_simple_message(
-            to=user.email,
-            subject="Successfully signed up",
-            body=f"Hi {user.username}! You have successfully signed up to the Tunga REST API."
-        )
+        queue.enqueue(send_user_registration_email, user.email, user.username)
 
         return {"message": "User created successfully."}, 201
     
