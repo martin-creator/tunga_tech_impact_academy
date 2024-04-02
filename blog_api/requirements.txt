@@ -6,3 +6,5 @@ flask-sqlalchemy
 flask_jwt_extended
 flask-migrate
 passlib
+gunicorn
+psycopg2
