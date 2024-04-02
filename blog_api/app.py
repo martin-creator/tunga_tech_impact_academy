@@ -5,6 +5,7 @@ from flask import Flask, jsonify
 from blog_api.db import db
 from flask_migrate import Migrate
 import os
+from dotenv import load_dotenv
 from blog_api.resources.user import blp as UserBlueprint
 from blog_api.resources.item import blp as ItemBlueprint
 from blog_api.resources.store import blp as StoreBlueprint
@@ -18,7 +19,7 @@ from blog_api.blocklist import BLOCKLIST
 def create_app(db_url=None):
     
     app = Flask(__name__)
-
+    load_dotenv()
     app.config["PROPAGATE_EXCEPTIONS"] = True
     app.config["API_TITLE"] = "BLOP-REST-API"
     app.config["API_VERSION"] = "v1"
