@@ -1,4 +1,6 @@
 from flask.views import MethodView
+import os
+import requests
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, get_jwt,jwt_required, create_refresh_token, get_jwt_identity
@@ -83,4 +85,19 @@ class TokenRefresh(MethodView):
         jti = get_jwt()["jti"]
         BLOCKLIST.add(jti)
         return {"access_token": new_token}, 200
+
+
+
+def send_simple_message(to, subject, body):
+    domain = os.getenv("MAILGUN_DOMAIN")
+    return requests.post(
+        f"https://api.mailgun.net/v3/{domain}/messages",
+        auth=("api", os.getenv("MAILGUN_API_KEY")),
+        data={
+            "from": f"Your Name <mailgun@{domain}>",
+            "to": [to],
+            "subject": subject,
+            "text": body,
+        },
+    )
     
