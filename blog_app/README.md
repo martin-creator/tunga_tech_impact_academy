@@ -10,6 +10,10 @@ This blog is built using Flask, a Python web framework, designed to facilitate t
 - **Authentication and Authorization:** Secure user access with authentication mechanisms and role-based authorization.
 - **Manage Profiles:** Users can maintain their profiles with customizable information.
 
+## Blog Screenshots
+![image](/blog_app/screenshots/image_1.png)
+
+
 ## Installation and Setup:
 
 1. **Run on Linux:**
