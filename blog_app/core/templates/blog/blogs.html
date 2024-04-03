@@ -23,12 +23,21 @@ URL: https://flowbite.com/docs/components/typography/
                     <a href="#">{{ blog.title}}</a>
                 </h2>
                 <p class="mb-4 text-gray-500 dark:text-gray-400">{{ blog.content.split()[:11] | join(' ') }} </p>
-                <a href="#" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
+                <a href="#" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline mb-5">
                     Author: {{ blog.author}}
                 </a>
-                <a href="{{ url_for('blog.update_blog_page', id=blog.id)}}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
-                    Updated Blog
-                </a>
+
+                <!-- Only display buttons to user-->
+                {% if current_user.is_authenticated %}
+                <!--Add button to update blog-->
+                <button href="{{ url_for('blog.update_blog', id=blog.id) }}" class="inline-flex items-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    Update Blog
+                </button>
+                <!--Add button to delete blog-->
+                <button href="{{ url_for('blog.delete_blog', id=blog.id) }}" type="button" class=" inline-flex items-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                    Delete Blog
+                </button >
+                {% endif %}
             </article>
             {% endfor %}
            
