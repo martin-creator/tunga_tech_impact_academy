@@ -18,10 +18,12 @@ def index():
     return render_template('blog/index.html')
 
 @bp.route('/create', methods=['GET'])
+@login_required
 def create_blog_page():
     return render_template('blog/create_blog.html')
 
 @bp.route('/create', methods=['POST'])
+@login_required
 def create_blog():
         
         # Handle exception if the blog is not created
@@ -73,12 +75,14 @@ def blog(id):
 
 
 @bp.route('/update/<int:id>', methods=['GET'])
+@login_required
 def update_blog_page(id):
     blog = Blog.query.get(id)
     return render_template('blog/update_blog.html', blog=blog)
 
 
 @bp.route('/update/<int:id>', methods=['POST'])
+@login_required
 def update_blog(id):
 
     try:
@@ -98,6 +102,7 @@ def update_blog(id):
         return redirect(url_for('blog.blog'))
 
 @bp.route('/delete/<int:id>', methods=['GET'])
+@login_required
 def delete_blog(id):
     try:
         blog = Blog.query.get(id)
@@ -111,6 +116,7 @@ def delete_blog(id):
     
 
 @bp.route('/delete_all', methods=['GET'])
+@login_required
 def delete_all_blogs():
     try:
         Blog.query.delete()
