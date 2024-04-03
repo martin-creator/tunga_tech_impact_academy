@@ -264,3 +264,6 @@ pyrightconfig.json
 tungaenv/
 blog_api/.flaskenv
 .flaskenv
+blog_api/.env
+
+
