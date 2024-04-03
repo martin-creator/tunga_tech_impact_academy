@@ -5,6 +5,7 @@ from flask import Flask, jsonify
 from blog_api.db import db
 from flask_migrate import Migrate
 import os
+from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from blog_api.resources.user import blp as UserBlueprint
 from blog_api.resources.item import blp as ItemBlueprint
@@ -32,6 +33,13 @@ def create_app(db_url=None):
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url or os.getenv("DATABASE_URL", "sqlite:///data.db")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["JWT_SECRET_KEY"] = "tunga-impact-academy-2024"
+    app.config["MAIL_SERVER"] = "smtp.gmail.com"
+    app.config["MAIL_PORT"] = 465
+    app.config["MAIL_USE_SSL"] = True
+    app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
+    app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
+    
+    mail = Mail(app)
 
     jwt = JWTManager(app)
 
