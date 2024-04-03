@@ -15,6 +15,7 @@ This blog is built using Flask, a Python web framework, designed to facilitate t
 ![image](/blog_app/screenshots/image_2.png)
 ![image](/blog_app/screenshots/image_3.png)
 ![image](/blog_app/screenshots/image_4.png)
+![image](/blog_app/screenshots/image_6.png)
 ![image](/blog_app/screenshots/image_5.png)
 
 
