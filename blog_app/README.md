@@ -26,6 +26,7 @@ This blog is built using Flask, a Python web framework, designed to facilitate t
 
 5. **Run the Project:**
     - Execute the Flask application: `flask --app core run`.
+    - Vist `http://localhost:5000` to see the application
 
 6. **Database Migrations:**
     - Initialize migrations: `flask --app core db init`.
