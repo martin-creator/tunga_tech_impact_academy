@@ -3,7 +3,7 @@ import os
 import requests
 import redis
 from rq import Queue
-from blog_api.tasks import send_user_registration_email
+from blog_api.tasks_queues.task import send_user_registration_email
 from sqlalchemy import or_  # or_ is an "OR" operator for SQLAlchemy
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
@@ -12,6 +12,8 @@ from blog_api.db import db
 from blog_api.models import UserModel
 from blog_api.schemas import UserSchema, UserRegisterSchema
 from blog_api.blocklist import BLOCKLIST
+# from blog_api.tasks import mail
+
 
 
 blp = Blueprint("Users", __name__, description="Operations on users")
@@ -49,7 +51,7 @@ class UserRegister(MethodView):
         db.session.add(user)
         db.session.commit()
 
-        queue.enqueue(send_user_registration_email, user.email, user.username)
+        queue.enqueue(send_user_registration_email, 'martinlubowa@outlook.com', 'martinlubowa')
 
         return {"message": "User created successfully."}, 201
     
