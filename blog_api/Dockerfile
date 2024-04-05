@@ -1,6 +1,6 @@
 FROM python:3.10
 EXPOSE 5000
-WORKDIR /app
+WORKDIR /blog_api
 COPY ./requirements.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY . .
