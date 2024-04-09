@@ -1,0 +1,1 @@
+# from blog_api.tasks_queues.task import send_user_registration_email
