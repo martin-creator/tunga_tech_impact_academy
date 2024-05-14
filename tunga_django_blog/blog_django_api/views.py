@@ -264,54 +264,7 @@ class UserRegister(APIView):
         user.save()
         return Response(status=status.HTTP_201_CREATED)
     
-    @extend_schema(
-        responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='User data')}
-    )
-    def get(self, request):
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
-    
-    @extend_schema(
-        responses={204: OpenApiResponse(response=OpenApiTypes.OBJECT, description='User data')}
-    )
-    def delete(self, request):
-        users = User.objects.all()
-        users.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    
-    @extend_schema(
-        parameters=[
-            OpenApiParameter(name='username', type=str, location=OpenApiParameter.QUERY, required=True),
-            OpenApiParameter(name='first_name', type=str, location=OpenApiParameter.QUERY, required=True),
-            OpenApiParameter(name='last_name', type=str, location=OpenApiParameter.QUERY, required=True),
-            OpenApiParameter(name='email', type=str, location=OpenApiParameter.QUERY, required=True),
-            OpenApiParameter(name='password', type=str, location=OpenApiParameter.QUERY, required=True),
-        ],
-        examples=[
-            OpenApiExample(
-                'Example 1',
-                summary='User Update',
-                description='Update a user',
-                value={
-                    "username": "username",
-                    "first_name": "first_name",
-                    "last_name": "last_name",
-                    "email": "email",
-                    "password": "password",
-                }
-            )
-        ],
-        responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='User data')}
-    )
-
-    def put(self, request):
-        users = User.objects.all()
-        serializer = UserSerializer(users, data=request.data, many=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+   
     
 
 class UserLogin(APIView):
@@ -345,48 +298,7 @@ class UserLogin(APIView):
             return Response({'token': token.key}, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
-    @extend_schema(
-        responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='User data')}
-    )
-    def get(self, request):
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
-    
-    @extend_schema(
-        responses={204: OpenApiResponse(response=OpenApiTypes.OBJECT, description='User data')}
-    )
-    def delete(self, request):
-        users = User.objects.all()
-        users.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    
-    @extend_schema(
-        parameters=[
-            OpenApiParameter(name='username', type=str, location=OpenApiParameter.QUERY, required=True),
-            OpenApiParameter(name='password', type=str, location=OpenApiParameter.QUERY, required=True),
-        ],
-        examples=[
-            OpenApiExample(
-                'Example 1',
-                summary='User Update',
-                description='Update a user',
-                value={
-                    "username": "username",
-                    "password": "password",
-                }
-            )
-        ],
-        responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='User data')}
-    )
-
-    def put(self, request):
-        users = User.objects.all()
-        serializer = UserSerializer(users, data=request.data, many=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+   
     
 
 class UserDetail(APIView):
