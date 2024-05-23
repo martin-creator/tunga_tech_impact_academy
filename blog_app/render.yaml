@@ -1,0 +1,21 @@
+databases:
+  - name: tunga_flask_blog
+    plan: free
+    databaseName: tunga_flask_blog
+    user: tunga_flask_blog
+
+services:
+  - type: web
+    plan: free
+    name: tunga_blog
+    runtime: python3.12
+    buildCommand: "./build.sh"
+    startCommand: "flask --app core run"  envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tunga_flask_blog
+          property: connectionString
+      # - key: SECRET_KEY
+        # generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
