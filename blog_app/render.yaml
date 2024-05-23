@@ -7,7 +7,7 @@ databases:
 services:
   - type: web
     plan: free
-    name: tunga_blog
+    name: tunga_flask_blog_web
     runtime: python3.12
     buildCommand: "./build.sh"
     startCommand: "flask --app core run"  envVars:
